@@ -1,0 +1,52 @@
+//this is testbench code
+
+
+
+`timescale 1ns / 1ps
+
+module tb_and_gate;
+    // Testbench signals
+    reg a;
+    reg b;
+    wire y;
+
+    // Instantiate the AND gate
+    and_gate uut (
+        .a(a),
+        .b(b),
+        .y(y)
+    );
+
+    // VCD File Dumping
+    initial begin
+        $dumpfile("dump.vcd"); // Specify the name of the VCD file
+        $dumpvars(0, tb_and_gate); // Dump all variables in the testbench
+    end
+
+    // Initialize inputs and apply test cases
+    initial begin
+        // Monitor output
+        $monitor("At time %t: a = %b, b = %b, y = %b", $time, a, b, y);
+
+        // Test Case 1
+        a = 0; b = 0;
+        #10; // Wait 10 ns
+
+        // Test Case 2
+        a = 0; b = 1;
+        #10; // Wait 10 ns
+
+        // Test Case 3
+        a = 1; b = 0;
+        #10; // Wait 10 ns
+
+        // Test Case 4
+        a = 1; b = 1;
+        #10; // Wait 10 ns
+
+        // Finish simulation
+        $finish;
+    end
+
+endmodule
+
